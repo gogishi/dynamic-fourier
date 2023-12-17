@@ -184,13 +184,9 @@ def placeholder():
 	if degree1_entry.get() != '0':
 		func = regular_smoothing(func, int(degree1_entry.get()))
 	if degree2_entry.get() != '0':
-		func = mean_smoothing(func, int(degree1_entry.get()))
+		func = mean_smoothing(func, int(degree2_entry.get()))
 	if degree3_entry.get() != '0':
-		func = partically_smart_smoothing(func, int(degree1_entry.get()))
-	if int(param_var1.get()):
-		func = spline(func)
-	if degree4_entry.get() != '0':
-		func = anti_regular_smoothing(func, int(degree1_entry.get()))
+		func = partically_smart_smoothing(func, int(degree3_entry.get()))
 	if int(param_var2.get()):
 		func = Fourier(func)
 	ax.cla()
@@ -390,60 +386,30 @@ rescale_button = tkinter.Button(frame, text = "Redraw with new scale\n(this will
 rescale_button.grid(row = 3, column = 0, columnspan = 2)
 
 
-at_infty = tkinter.StringVar(value = "0")
-at_infty_power = tkinter.StringVar(value = "1")
-at_infty.trace_add("write", on_infty_change)
-at_infty_label = tkinter.Label(frame, text = "Behavior out of bounds\nand at infinity", bg = "light blue")
-at_infty_button0 = tkinter.Radiobutton(frame, text = "0", value = "0", variable = at_infty)
-at_infty_button_per = tkinter.Radiobutton(frame, text = "Periodic", value = "periodic", variable = at_infty)
-at_infty_button_exp = tkinter.Radiobutton(frame, text = "e\u207B\u1D57", value = "exponent", variable = at_infty)
-at_infty_button_t = tkinter.Radiobutton(frame, text = "t\u207B\u207F", value = "negpower", variable = at_infty)
-at_infty_entrylabel = tkinter.Label(frame, text="n =")
-at_infty_entry = tkinter.Entry(frame, width = 5, textvariable = at_infty_power)
-at_infty_entry.bind("<KeyRelease>", on_infty_change)
-
-at_infty_label.grid(row = 4, column = 0, columnspan = 2)
-at_infty_button0.grid(row = 5, column = 0, sticky="W")
-at_infty_button_per.grid(row = 5, column = 1, sticky="W")
-at_infty_button_exp.grid(row = 6, column = 0, sticky="W")
-at_infty_button_t.grid(row = 6, column = 1, sticky="W")
-at_infty_entrylabel.grid(row = 7, column = 0, sticky="E")
-at_infty_entry.grid(row = 7, column = 1, sticky = "W")
-
-
+degree_label = tkinter.Label(frame, text = "Сглаживание", bg = "light blue")
+degree_label.grid(row = 4, column = 0, columnspan = 2)
 
 degree1_power = tkinter.StringVar(value = '0')
 degree1_entrylabel = tkinter.Label(frame, text="Логарифм размаха интерполяционного сглаживания")
 degree1_entry = tkinter.Entry(frame, width = 5, textvariable = degree1_power)
 degree1_entrylabel.grid(row = 17, column = 0, sticky="E")
 degree1_entry.grid(row = 17, column = 1, sticky = "W")
-degree1_entry.bind("<KeyRelease>", on_infty_change)
 
 degree2_power = tkinter.StringVar(value = '0')
 degree2_entrylabel = tkinter.Label(frame, text="Размах сглаживания усреднением")
 degree2_entry = tkinter.Entry(frame, width = 5, textvariable = degree2_power)
 degree2_entrylabel.grid(row = 18, column = 0, sticky="E")
 degree2_entry.grid(row = 18, column = 1, sticky = "W")
-degree2_entry.bind("<KeyRelease>", on_infty_change)
 
 degree3_power = tkinter.StringVar(value = '0')
 degree3_entrylabel = tkinter.Label(frame, text="Логарифм размаха сглаживания умным усреднением")
 degree3_entry = tkinter.Entry(frame, width = 5, textvariable = degree3_power)
 degree3_entrylabel.grid(row = 19, column = 0, sticky="E")
 degree3_entry.grid(row = 19, column = 1, sticky = "W")
-degree3_entry.bind("<KeyRelease>", on_infty_change)
 
 param_var1 = tkinter.IntVar()
 param1 = tkinter.Checkbutton(frame, variable = param_var1, text = 'Сглаживание сплайном?')
 param1.grid(row = 20, column= 0, columnspan = 2)
-
-degree4_power = tkinter.StringVar(value = '0')
-degree4_entrylabel = tkinter.Label(frame, text="Логарифм глубины хитрого сплайна (анти-интерполяционного сглаживания)")
-degree4_entry = tkinter.Entry(frame, width = 5, textvariable = degree4_power)
-degree4_entrylabel.grid(row = 21, column = 0, sticky="E")
-degree4_entry.grid(row = 21, column = 1, sticky = "W")
-degree4_entry.bind("<KeyRelease>", on_infty_change)
-
 
 
 param_var2 = tkinter.IntVar()
