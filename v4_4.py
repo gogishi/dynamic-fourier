@@ -180,6 +180,7 @@ class errorlabel(tkinter.Label):
 			self.config(bg = window.cget("bg"))
 
 def placeholder():
+	func = to_real_coords(canvas1)
 	if degree1_entry.get() != '0':
 		func = regular_smoothing(func, int(degree1_entry.get()))
 	if degree2_entry.get() != '0':
