@@ -328,10 +328,7 @@ from numpy.fft import fft
 
 
 def Fourier(func):
-	funcy = defaultdict(float)
-	for i in range(len(func)):
-		funcy[func[i][0]] = func[i][1]
-	fury = fft(*funcy)
+	fury = fft(func)
 
 
 
@@ -390,7 +387,7 @@ degree_label = tkinter.Label(frame, text = "Сглаживание", bg = "light
 degree_label.grid(row = 4, column = 0, columnspan = 2)
 
 degree1_power = tkinter.StringVar(value = '0')
-degree1_entrylabel = tkinter.Label(frame, text="Логарифм размаха интерполяционного сглаживания")
+degree1_entrylabel = tkinter.Label(frame, text="Логарифм размаха\nинтерполяционного сглаживания")
 degree1_entry = tkinter.Entry(frame, width = 5, textvariable = degree1_power)
 degree1_entrylabel.grid(row = 17, column = 0, sticky="E")
 degree1_entry.grid(row = 17, column = 1, sticky = "W")
@@ -402,14 +399,10 @@ degree2_entrylabel.grid(row = 18, column = 0, sticky="E")
 degree2_entry.grid(row = 18, column = 1, sticky = "W")
 
 degree3_power = tkinter.StringVar(value = '0')
-degree3_entrylabel = tkinter.Label(frame, text="Логарифм размаха сглаживания умным усреднением")
+degree3_entrylabel = tkinter.Label(frame, text="Логарифм размаха сглаживания\nумным усреднением")
 degree3_entry = tkinter.Entry(frame, width = 5, textvariable = degree3_power)
 degree3_entrylabel.grid(row = 19, column = 0, sticky="E")
 degree3_entry.grid(row = 19, column = 1, sticky = "W")
-
-param_var1 = tkinter.IntVar()
-param1 = tkinter.Checkbutton(frame, variable = param_var1, text = 'Сглаживание сплайном?')
-param1.grid(row = 20, column= 0, columnspan = 2)
 
 
 param_var2 = tkinter.IntVar()
