@@ -40,7 +40,7 @@ class entercanvas(tkinter.Canvas):
 				elif self.latestx<x:
 					self.create_rectangle(self.latestx-1,0,x+1,self.height,fill="white",outline="white")
 			self.create_rectangle(x,0,x,self.height,fill="white",outline="white")
-			self.drawcoords(3, self.hscale)
+			self.drawcoords(self.wscale, self.hscale)
 			if self.latestx != None:
 				if self.latestx>x:
 					for i in range (x,self.latestx+1):
@@ -143,7 +143,7 @@ class entercanvas(tkinter.Canvas):
 			yscale.set(str(self.hscale))
 		except ValueError:
 			errorWindow = tkinter.Tk()
-			errorLabel = tkinter.Label(errorWindow, text = f'Error: cannot set scale on Y-axis to {yscale.get()}: not a number')
+			errorLabel = tkinter.Label(errorWindow, text = f'Ошибка: невозможно выставить масштаб по оси Y {yscale.get()}: это не число')
 			errorLabel.grid(row = 0, column = 0)
 			errorButton = tkinter.Button(errorWindow, text = 'OK', command = errorWindow.destroy)
 			errorButton.grid(row = 1, column = 0)
@@ -153,7 +153,7 @@ class entercanvas(tkinter.Canvas):
 			xscale.set(str(self.wscale))
 		except ValueError:
 			errorWindow = tkinter.Tk()
-			errorLabel = tkinter.Label(errorWindow, text = f'Error: cannot set scale on X-axis to {xscale.get()}: not a number')
+			errorLabel = tkinter.Label(errorWindow, text = f'Ошибка: невозможно выставить масштаб по оси X {xscale.get()}: это не число')
 			errorLabel.grid(row = 0, column = 0)
 			errorButton = tkinter.Button(errorWindow, text = 'OK', command = errorWindow.destroy)
 			errorButton.grid(row = 1, column = 0)
@@ -174,7 +174,7 @@ class errorlabel(tkinter.Label):
 	def reconfig(self, txt):
 		if txt=="Out of bounds!":
 			self.config(bg = "red")
-			self.config(text = txt)
+			self.config(text = "Вы рисуете за допустимыми границами!")
 		else:
 			self.config(text="")
 			self.config(bg = window.cget("bg"))
@@ -337,7 +337,7 @@ l = 480
 window = tkinter.Tk()
 window.wm_title("FOURIERTRANSFORM")
 
-label1 = tkinter.Label(window, text="Draw your function")
+label1 = tkinter.Label(window, text="Нарисуйте график функции")
 label1.grid(row = 0, column = 0, columnspan = 2)
 label2 = errorlabel(window)
 canvas1 = entercanvas(window, l, l, label2)
@@ -348,10 +348,10 @@ label2.grid(row = 2, column = 0, columnspan = 2)
 canvas1.create_rectangle(440,440,441,441)
 canvas1.create_rectangle(40,440,40,440)
 
-erasebutton = tkinter.Button(window, text="Clear canvas", command = canvas1.eraseall)
+erasebutton = tkinter.Button(window, text="Очистить холст", command = canvas1.eraseall)
 erasebutton.grid(row = 3, column = 0)
 
-gobutton = tkinter.Button(window, text = "Go!", command = placeholder)
+gobutton = tkinter.Button(window, text = "Поехали!", command = placeholder)
 gobutton.grid(row = 3, column = 1)
 
 fig = Figure()
@@ -362,24 +362,24 @@ canvas2.get_tk_widget().grid(row = 1, column = 3)
 frame = tkinter.Frame(window)
 frame.grid(row = 1, column = 2)
 
-scale_label = tkinter.Label(frame, text = "Scale on the axes\n(will be rounded to integer)", bg = "light blue")
+scale_label = tkinter.Label(frame, text = "Масштаб на графике слева\n(округляется до целого числа)", bg = "light blue")
 scale_label.grid(row = 0, column = 0, columnspan = 2)
 
 yscale = tkinter.StringVar(value = "3")
-y_scale_label = tkinter.Label(frame, text = "Scale on Y-axis:")
+y_scale_label = tkinter.Label(frame, text = "Масштаб по оси Y:")
 y_scale_entry = tkinter.Entry(frame, textvariable = yscale, width = 5)
 
-y_scale_label.grid(row = 1, column = 0, sticky="E")
-y_scale_entry.grid(row = 1, column = 1, sticky = "W")
+y_scale_label.grid(row = 2, column = 0, sticky="E")
+y_scale_entry.grid(row = 2, column = 1, sticky = "W")
 
 xscale = tkinter.StringVar(value = "3")
-x_scale_label = tkinter.Label(frame, text = "Scale on X-axis:")
+x_scale_label = tkinter.Label(frame, text = "Масштаб по оси X:")
 x_scale_entry = tkinter.Entry(frame, textvariable = xscale, width = 5)
 
-x_scale_label.grid(row = 2, column = 0, sticky="E")
-x_scale_entry.grid(row = 2, column = 1, sticky = "W")
+x_scale_label.grid(row = 1, column = 0, sticky="E")
+x_scale_entry.grid(row = 1, column = 1, sticky = "W")
 
-rescale_button = tkinter.Button(frame, text = "Redraw with new scale\n(this will clear canvas)", command = canvas1.eraseall)
+rescale_button = tkinter.Button(frame, text = "Нарисовать координаты\nв новом масштабе\n(это очистит холст)", command = canvas1.eraseall)
 rescale_button.grid(row = 3, column = 0, columnspan = 2)
 
 
